@@ -26,7 +26,7 @@ class RadioList extends Component {
     return this.props.list.map(value => (
       <FormControlLabel
         key={value._id}
-        value={value.name}
+        value={`${value._id}`}
         control={<Radio />}
         label={value.name}
       />

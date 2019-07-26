@@ -24,18 +24,19 @@ class CheckboxList extends Component {
     }
 
     this.setState({ checked: newChecked });
+    this.props.handleFilters(newChecked);
     console.log(newChecked);
     console.log(this.state.checked);
   };
 
   renderList = () => {
-    return this.props.list.map(value => (
-      <ListItem key={value._id}>
+    return this.props.list.map((value, index) => (
+      <ListItem key={index}>
         <ListItemText>{value}</ListItemText>
         <ListItemSecondaryAction>
           <Checkbox
-            checked={this.state.checked.indexOf(value._id) !== -1}
-            onClick={e => this.handleToggle(value._id)}
+            checked={this.state.checked.indexOf(value) !== -1}
+            onClick={e => this.handleToggle(value)}
           />
         </ListItemSecondaryAction>
       </ListItem>

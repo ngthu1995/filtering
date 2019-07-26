@@ -41,14 +41,30 @@ class App extends Component {
         states.push(player.state);
       }
     });
-    this.setState({ fetchedStates: states });
-    return states;
+    this.setState({ fetchedStates: states.sort() });
+  };
+
+  handleAge = value => {
+    const data = age;
+    var arr = [];
+    for (let key in data) {
+      if (data[key]._id === parseInt(value)) {
+        arr = data[key].array;
+      }
+    }
+    console.log(arr);
+    return arr;
   };
 
   handleFilters = (filters, criteria) => {
     const newFilters = this.state.filters;
     newFilters[criteria] = filters;
     const duplicateFilters = { ...newFilters };
+
+    if (criteria === "age") {
+      this.handleAge(filters);
+    }
+
     this.setState({
       filters: duplicateFilters
     });
@@ -56,7 +72,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <CheckboxList title="States" list={this.state.fetchedStates} />
+        <CheckboxList
+          title="States"
+          list={this.state.fetchedStates}
+          handleFilters={filters => this.handleFilters(filters, "state")}
+        />
         <RadioList
           title="Age"
           list={age}
