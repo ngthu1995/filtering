@@ -5,10 +5,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
-import Switch from "@material-ui/core/Switch";
+import Divider from "@material-ui/core/Divider";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import { ListItemIcon } from "@material-ui/core";
 
 class CheckboxList extends Component {
   state = {
+    open: true,
     checked: []
   };
 
@@ -25,14 +30,18 @@ class CheckboxList extends Component {
 
     this.setState({ checked: newChecked });
     this.props.handleFilters(newChecked);
-    console.log(newChecked);
-    console.log(this.state.checked);
+  };
+
+  handleClick = () => {
+    this.setState({
+      open: !this.state.open
+    });
   };
 
   renderList = () => {
     return this.props.list.map((value, index) => (
       <ListItem key={index}>
-        <ListItemText>{value}</ListItemText>
+        <ListItemText primary={value} />
         <ListItemSecondaryAction>
           <Checkbox
             checked={this.state.checked.indexOf(value) !== -1}
@@ -45,8 +54,18 @@ class CheckboxList extends Component {
   render() {
     return (
       <div>
-        <div>{this.props.title}</div>
-        <List>{this.renderList()}</List>
+        <List>
+          <ListItem onClick={this.handleClick}>
+            <ListItemText>{this.props.title}</ListItemText>
+            <ListItemIcon>
+              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemIcon>
+          </ListItem>
+
+          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+            <List>{this.renderList()}</List>
+          </Collapse>
+        </List>
       </div>
     );
   }

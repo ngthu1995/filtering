@@ -4,6 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -26,7 +27,7 @@ class RadioList extends Component {
     return this.props.list.map(value => (
       <FormControlLabel
         key={value._id}
-        value={`${value._id}`}
+        value={this.props.title !== "Age" ? value.name : `${value._id}`}
         control={<Radio />}
         label={value.name}
       />
@@ -36,6 +37,7 @@ class RadioList extends Component {
     return (
       <div>
         <div>{this.props.title}</div>
+        <Divider />
         <RadioGroup onClick={this.handleClick}>{this.renderList()}</RadioGroup>
       </div>
     );
