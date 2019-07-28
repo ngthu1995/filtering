@@ -8,12 +8,24 @@ import Divider from "@material-ui/core/Divider";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import { ListItemIcon } from "@material-ui/core";
 
 class RadioList extends Component {
   state = {
-    checked: ""
+    checked: "",
+    open: false
   };
+
+  componentDidMount() {
+    if (this.props.openState) {
+      this.setState({
+        open: this.props.openState
+      });
+    }
+  }
 
   handleClick = e => {
     this.setState({
@@ -23,6 +35,12 @@ class RadioList extends Component {
     this.props.handleFilters(e.target.value);
   };
 
+  handleCollapse = () => {
+    this.setState({
+      open: !this.state.open
+    });
+  };
+
   renderList = () => {
     return this.props.list.map(value => (
       <FormControlLabel
@@ -30,15 +48,32 @@ class RadioList extends Component {
         value={this.props.title !== "Age" ? value.name : `${value._id}`}
         control={<Radio />}
         label={value.name}
+        onClick={this.handleClick}
+        style={{ padding: "0 16px" }}
       />
     ));
   };
+
   render() {
     return (
       <div>
-        <div>{this.props.title}</div>
-        <Divider />
-        <RadioGroup onClick={this.handleClick}>{this.renderList()}</RadioGroup>
+        <List>
+          <ListItem
+            onClick={this.handleCollapse}
+            style={{ fontSize: "0.875rem" }}
+          >
+            <ListItemText>{this.props.title}</ListItemText>
+            <ListItemIcon style={{ minWidth: "34px" }}>
+              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemIcon>
+          </ListItem>
+          <Divider absolute />
+          <List component="div" disablePadding>
+            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+              <RadioGroup>{this.renderList()}</RadioGroup>
+            </Collapse>
+          </List>
+        </List>
       </div>
     );
   }

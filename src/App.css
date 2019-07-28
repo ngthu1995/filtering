@@ -1,5 +1,19 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 .App {
   text-align: center;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -8,9 +22,44 @@
 
 .left {
   width: 30%;
+  padding: 0 30px 0 50px;
+  border-right: 1px solid #dbdbdb;
+  padding: 30px;
 }
 
 .right {
   width: 70%;
-  padding: 0 60px;
+  padding: 30px 60px;
+}
+
+.bar {
+  width: 100%;
+  background-color: #e91e63;
+  padding: 20px 50px 20px 40px;
+  font-weight: bold;
+  color: white;
+}
+
+.MuiTypography-body1 {
+  font-size: 0.875rem !important;
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    flex-direction: column;
+  }
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .right {
+    padding: 30px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .right {
+    padding: 30px;
+  }
 }

@@ -6,6 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const styles = makeStyles(theme => ({
@@ -26,13 +27,21 @@ const PlayersData = props => {
   return (
     <div>
       {props.list.length !== 0 ? (
-        <Paper className={classes.root}>
+        <Paper className={classes.root} style={{ marginTop: "0" }}>
+          <Toolbar style={{ padding: "0 40px 14px 16px" }}>
+            <div>
+              <h3>Players found: {props.list.length}</h3>
+            </div>
+          </Toolbar>
           <Table className={classes.table}>
             <TableHead>
-              <TableCell>Name</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>State</TableCell>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>State</TableCell>
+              </TableRow>
             </TableHead>
             <TableBody>
               {props.list.map((player, index) => (
@@ -40,7 +49,9 @@ const PlayersData = props => {
                   <TableCell component="th" scope="row">
                     {player.name}
                   </TableCell>
+
                   <TableCell>{player.gender}</TableCell>
+                  <TableCell>{player.age}</TableCell>
                   <TableCell>{player.status}</TableCell>
                   <TableCell>{player.state}</TableCell>
                 </TableRow>
@@ -49,7 +60,9 @@ const PlayersData = props => {
           </Table>
         </Paper>
       ) : (
-        <div>There are no results that match your search</div>
+        <div style={{ textAlign: "center", padding: "60px ", margin: "auto" }}>
+          There are no results that match your search
+        </div>
       )}
     </div>
   );

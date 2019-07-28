@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../App.css";
 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -13,7 +14,7 @@ import { ListItemIcon } from "@material-ui/core";
 
 class CheckboxList extends Component {
   state = {
-    open: true,
+    open: false,
     checked: []
   };
 
@@ -55,16 +56,20 @@ class CheckboxList extends Component {
     return (
       <div>
         <List>
-          <ListItem onClick={this.handleClick}>
-            <ListItemText>{this.props.title}</ListItemText>
-            <ListItemIcon>
-              {this.state.open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemIcon>
-          </ListItem>
-
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List>{this.renderList()}</List>
-          </Collapse>
+          <List>
+            <ListItem onClick={this.handleClick}>
+              <ListItemText>{this.props.title}</ListItemText>
+              <ListItemIcon style={{ minWidth: "34px" }}>
+                {this.state.open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemIcon>
+            </ListItem>
+          </List>
+          <Divider absolute />
+          <List component="div" disablePadding>
+            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+              <List>{this.renderList()}</List>
+            </Collapse>
+          </List>
         </List>
       </div>
     );

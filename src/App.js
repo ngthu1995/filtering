@@ -53,7 +53,6 @@ class App extends Component {
         arr = data[key].array;
       }
     }
-    console.log(arr);
     return arr;
   };
 
@@ -76,10 +75,10 @@ class App extends Component {
 
   showFilters = filters => {
     const data = this.state.fetchedData; //array
-    console.log(data);
+
     const playersData = data.filter(player => {
       for (let key in filters) {
-        if (filters[key].length === 0) {
+        if (!filters[key] || filters[key].length === 0) {
           continue;
         }
 
@@ -107,42 +106,51 @@ class App extends Component {
               return false;
             }
             break;
+          default:
+            break;
         }
       }
       return true;
     });
-    console.log(playersData);
+
     this.setState({ playersData: playersData });
   };
 
   render() {
     return (
-      <div className="container">
-        <div className="left">
-          <div className="" />
-          <RadioList
-            title="Age"
-            list={age}
-            handleFilters={filters => this.handleFilters(filters, "age")}
-          />
-          <RadioList
-            title="Gender"
-            list={gender}
-            handleFilters={filters => this.handleFilters(filters, "gender")}
-          />
-          <RadioList
-            title="Status"
-            list={status}
-            handleFilters={filters => this.handleFilters(filters, "status")}
-          />
-          <CheckboxList
-            title="States"
-            list={this.state.fetchedStates}
-            handleFilters={filters => this.handleFilters(filters, "state")}
-          />
-        </div>
-        <div className="right">
-          <PlayersData list={this.state.playersData} />
+      <div className="search">
+        <div className="bar">FIND PLAYERS</div>
+
+        <div className="container">
+          <div className="left">
+            <RadioList
+              title="Age"
+              list={age}
+              handleFilters={filters => this.handleFilters(filters, "age")}
+              openState={true}
+            />
+            <RadioList
+              title="Gender"
+              list={gender}
+              handleFilters={filters => this.handleFilters(filters, "gender")}
+              openState={false}
+            />
+            <RadioList
+              title="Status"
+              list={status}
+              handleFilters={filters => this.handleFilters(filters, "status")}
+              openState={false}
+            />
+            <CheckboxList
+              title="State"
+              list={this.state.fetchedStates}
+              handleFilters={filters => this.handleFilters(filters, "state")}
+              openState="false"
+            />
+          </div>
+          <div className="right">
+            <PlayersData list={this.state.playersData} />
+          </div>
         </div>
       </div>
     );
