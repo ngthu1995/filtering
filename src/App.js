@@ -25,7 +25,7 @@ class App extends Component {
   fetchData = async () => {
     try {
       const response = await axios(
-        "http://dii-test.s3.amazonaws.com/players.json"
+        "https://dii-test.s3.amazonaws.com/players.json"
       );
       const fetchedData = await response.data;
       this.setState({ fetchedData });
