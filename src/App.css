@@ -63,3 +63,15 @@ html {
     padding: 30px;
   }
 }
+
+.paper {
+  width: 100%;
+  margin-top: 24px;
+  overflow-x: auto;
+  margin: auto;
+  text-align: center;
+}
+
+.table {
+  min-width: 650px;
+}

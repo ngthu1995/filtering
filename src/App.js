@@ -25,17 +25,28 @@ class App extends Component {
   fetchData = async () => {
     try {
       const response = await axios(
-        "https://dii-test.s3.amazonaws.com/players.json"
+        "http://dii-test.s3.amazonaws.com/players.json"
       );
       const fetchedData = await response.data;
       this.setState({ fetchedData });
-      this.fetchStates();
+      this.setId();
+      this.setStates();
     } catch (error) {
       console.error(error);
     }
   };
 
-  fetchStates = () => {
+  setId = () => {
+    const data = this.state.fetchedData;
+    data.map((player, index) => {
+      player._id = index;
+    });
+    this.setState({
+      fetchedData: data
+    });
+  };
+
+  setStates = () => {
     const states = this.state.fetchedStates;
     this.state.fetchedData.forEach(player => {
       if (states.indexOf(player.state) === -1) {
