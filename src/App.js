@@ -176,7 +176,10 @@ class App extends Component {
           </div>
           <div className="right">
             {!this.state.filterCheck ? (
-              <PlayersData list={this.state.fetchedData} />
+              <PlayersData
+                list={this.state.fetchedData}
+                handleUpdate={edit => this.handleUpdatePlayer(edit)}
+              />
             ) : (
               <PlayersData
                 list={this.state.playersData}
