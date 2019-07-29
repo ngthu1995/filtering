@@ -22,14 +22,6 @@ You can apply more than one filter to narrow down your search results.
 
 ![Main site](src/img/demo.png "Screenshot of the application")
 
-### In progress & future:
-
-The cart needs to fetch all info from authenticated user's cart
-Users are able to purchase items and show up in history puschase
-The users are able to see his/her own info and edit if possible.
-The list view should look a little more organized.
-The site needs to be responsive and more cohesive.
-
 ## Getting Started
 
 React installed
