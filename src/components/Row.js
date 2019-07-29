@@ -1,35 +1,18 @@
 import React, { Component } from "react";
+import "../App.css";
+
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import Edit from "@material-ui/icons/Edit";
+import Save from "@material-ui/icons/Save";
+import Cancel from "@material-ui/icons/Cancel";
 
-class PlayerData extends Component {
+class Row extends Component {
   state = {
     edit: false,
-    editList: {},
-    name: "",
-    age: 0,
-    gender: "",
-    status: ""
+    editList: {}
   };
-  componentDidUpdate() {
-    !this.state.name &&
-      this.setState({
-        name: this.props.player.name,
-        age: this.props.player.age,
-        gender: this.props.player.gender,
-        status: this.props.player.status
-      });
-  }
 
-  //   shouldComponentUpdate(nextProps, nextState) {
-  //     Object.keys(nextProps.player).forEach(key => {
-  //       if (nextProps[key] !== this.props.player[key]) {
-  //         console.log(this.props.player[key], nextProps.player[key]);
-  //         return false;
-  //       }
-  //     });
-  //     return true;
-  //   }
   onEdit = value => {
     console.log("clicked");
     this.setState({
@@ -60,14 +43,10 @@ class PlayerData extends Component {
         <TableRow className={this.state.edit ? "hidden" : "table-row"}>
           <TableCell component="th" scope="row">
             <button onClick={e => this.onEdit(this.props.player._id)}>
-              Edit
+              <Edit />
             </button>
           </TableCell>
-          <TableCell>
-            <button onClick={e => this.onEdit(this.props.player._id)}>
-              Cancel
-            </button>
-          </TableCell>
+          <TableCell />
           <TableCell key={this.props.player.name}>
             {this.props.player.name}
           </TableCell>
@@ -86,14 +65,18 @@ class PlayerData extends Component {
         </TableRow>
         <TableRow className={this.state.edit ? "table-row-edit" : "hidden"}>
           <TableCell component="th" scope="row">
-            <button onClick={e => this.onSave()}>Save</button>
+            <button onClick={e => this.onSave()}>
+              <Save />
+            </button>
           </TableCell>
           <TableCell>
-            <button onClick={e => this.onEdit()}>Cancel</button>
+            <button onClick={e => this.onEdit()}>
+              <Cancel />
+            </button>
           </TableCell>
           <TableCell>
             <input
-              defaultValue={this.state.name}
+              defaultValue={this.props.player.name}
               key={this.props.player.name}
               onChange={e => this.handleChange(e, "name")}
             />
@@ -134,4 +117,4 @@ class PlayerData extends Component {
   }
 }
 
-export default PlayerData;
+export default Row;

@@ -17,7 +17,7 @@ class App extends Component {
       state: [],
       status: []
     },
-    edit: {}
+    filterCheck: false
   };
   componentDidMount() {
     this.fetchData();
@@ -92,7 +92,8 @@ class App extends Component {
     }
 
     this.setState({
-      filters: duplicateFilters
+      filters: duplicateFilters,
+      filterCheck: true
     });
 
     this.showFilters(duplicateFilters);
@@ -174,10 +175,14 @@ class App extends Component {
             />
           </div>
           <div className="right">
-            <PlayersData
-              list={this.state.playersData}
-              handleUpdate={edit => this.handleUpdatePlayer(edit)}
-            />
+            {!this.state.filterCheck ? (
+              <PlayersData list={this.state.fetchedData} />
+            ) : (
+              <PlayersData
+                list={this.state.playersData}
+                handleUpdate={edit => this.handleUpdatePlayer(edit)}
+              />
+            )}
           </div>
         </div>
       </div>

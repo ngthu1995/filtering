@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
+import Row from "./Row";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,28 +9,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
-import PlayerData from "./PlayerData";
 
 class PlayersData extends Component {
-  state = {
-    edit: false,
-    editList: []
-  };
-
-  onEdit = value => {
-    console.log("clicked");
-    this.setState({
-      edit: !this.state.edit
-    });
-  };
-
-  handleChange = (e, criteria) => {
-    const data = { ...this.state.editList };
-    data[criteria] = e.target.value;
-    this.setState({
-      editList: data
-    });
-  };
   render() {
     return (
       <div>
@@ -55,7 +36,7 @@ class PlayersData extends Component {
               <TableBody>
                 {this.props.list.map((player, index) => (
                   <React.Fragment key={index}>
-                    <PlayerData
+                    <Row
                       player={player}
                       id={player._id}
                       handleUpdate={edit => this.props.handleUpdate(edit)}
