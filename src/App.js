@@ -16,7 +16,8 @@ class App extends Component {
       gender: [],
       state: [],
       status: []
-    }
+    },
+    edit: {}
   };
   componentDidMount() {
     this.fetchData();
@@ -39,7 +40,7 @@ class App extends Component {
   setId = () => {
     const data = this.state.fetchedData;
     data.map((player, index) => {
-      player._id = index;
+      return (player._id = index);
     });
     this.setState({
       fetchedData: data
@@ -54,6 +55,19 @@ class App extends Component {
       }
     });
     this.setState({ fetchedStates: states.sort() });
+  };
+
+  handleUpdatePlayer = value => {
+    console.log("updated");
+    const data = [...this.state.fetchedData];
+
+    const info = data.map(player =>
+      player._id === value._id ? { ...player, ...value } : player
+    );
+    console.log(info);
+    this.setState({ fetchedData: info }, () => {
+      this.showFilters(this.state.filters);
+    });
   };
 
   handleAge = value => {
@@ -160,7 +174,10 @@ class App extends Component {
             />
           </div>
           <div className="right">
-            <PlayersData list={this.state.playersData} />
+            <PlayersData
+              list={this.state.playersData}
+              handleUpdate={edit => this.handleUpdatePlayer(edit)}
+            />
           </div>
         </div>
       </div>

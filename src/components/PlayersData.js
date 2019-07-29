@@ -8,10 +8,27 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
+import PlayerData from "./PlayerData";
 
 class PlayersData extends Component {
   state = {
-    edit: ""
+    edit: false,
+    editList: []
+  };
+
+  onEdit = value => {
+    console.log("clicked");
+    this.setState({
+      edit: !this.state.edit
+    });
+  };
+
+  handleChange = (e, criteria) => {
+    const data = { ...this.state.editList };
+    data[criteria] = e.target.value;
+    this.setState({
+      editList: data
+    });
   };
   render() {
     return (
@@ -26,6 +43,8 @@ class PlayersData extends Component {
             <Table className="table">
               <TableHead>
                 <TableRow>
+                  <TableCell />
+                  <TableCell />
                   <TableCell>Name</TableCell>
                   <TableCell>Gender</TableCell>
                   <TableCell>Age</TableCell>
@@ -35,15 +54,13 @@ class PlayersData extends Component {
               </TableHead>
               <TableBody>
                 {this.props.list.map((player, index) => (
-                  <TableRow key={index}>
-                    <TableCell component="th" scope="row">
-                      {player.name}
-                    </TableCell>
-                    <TableCell>{player.gender}</TableCell>
-                    <TableCell>{player.age}</TableCell>
-                    <TableCell>{player.status}</TableCell>
-                    <TableCell>{player.state}</TableCell>
-                  </TableRow>
+                  <React.Fragment key={index}>
+                    <PlayerData
+                      player={player}
+                      id={player._id}
+                      handleUpdate={edit => this.props.handleUpdate(edit)}
+                    />
+                  </React.Fragment>
                 ))}
               </TableBody>
             </Table>

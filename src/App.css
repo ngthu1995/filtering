@@ -75,3 +75,7 @@ html {
 .table {
   min-width: 650px;
 }
+
+.hidden {
+  display: none !important;
+}
