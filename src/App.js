@@ -58,13 +58,11 @@ class App extends Component {
   };
 
   handleUpdatePlayer = value => {
-    console.log("updated");
     const data = [...this.state.fetchedData];
 
     const info = data.map(player =>
       player._id === value._id ? { ...player, ...value } : player
     );
-    console.log(info);
     this.setState({ fetchedData: info }, () => {
       this.showFilters(this.state.filters);
     });

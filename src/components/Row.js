@@ -14,7 +14,6 @@ class Row extends Component {
   };
 
   onEdit = value => {
-    console.log("clicked");
     this.setState({
       edit: !this.state.edit
     });
